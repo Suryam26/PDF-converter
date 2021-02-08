@@ -1,0 +1,45 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Red Hat Display', sans-serif;
+  font-size: 25px;
+  color: #ffffff;
+  background-color: #141414;
+}
+
+.navbar-brand {
+  font-size: 1.5em;
+}
+
+.navbar-dark .navbar-toggler {
+  color: white;
+  border-color: white;
+}
+
+#upload {
+  background-color: #313131;
+  border-radius: 20px;
+  min-height: 30vh;
+  overflow: hidden;
+}
+
+.btn {
+  width: 70%;
+}
+
+.card-text {
+  position: relative;
+}
+
+.btn-wrapper input[type=file] {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+
