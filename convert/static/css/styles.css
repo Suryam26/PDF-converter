@@ -3,7 +3,7 @@ html {
 }
 
 body {
-  font-family: 'Red Hat Display', sans-serif;
+  font-family: "Red Hat Display", sans-serif;
   font-size: 25px;
   color: #ffffff;
   background-color: #141414;
@@ -21,7 +21,7 @@ body {
 #upload {
   background-color: #313131;
   border-radius: 20px;
-  min-height: 30vh;
+  min-height: 35vh;
   overflow: hidden;
 }
 
@@ -33,7 +33,7 @@ body {
   position: relative;
 }
 
-.btn-wrapper input[type=file] {
+.btn-wrapper input[type="file"] {
   position: absolute;
   left: 0;
   top: 0;
@@ -42,4 +42,6 @@ body {
   opacity: 0;
 }
 
-
+#upload select {
+  width: 80%;
+}
