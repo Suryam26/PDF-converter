@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.core.files.storage import FileSystemStorage
 from .forms import UploadForm
+from .pypdf import Convert
 # Create your views here.
 
 
@@ -14,6 +15,7 @@ def Upload(request):
                 fs = FileSystemStorage()
                 file = fs.save(request_file.name, request_file)
                 fileurl = fs.url(file)
+                Convert()
 
             return redirect('home')
 
