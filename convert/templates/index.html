@@ -50,7 +50,7 @@
                             <div class="card-text btn-wrapper btn btn-primary px-4 my-3">
                                 <i class="fa fa-upload" aria-hidden="true"></i>
                                 Upload
-                                <input type="file" name="{{ form.uploadFile.name }}">
+                                <input id="uploadButton" type="file" name="{{ form.uploadFile.name }}">
                             </div>
                             
                     </div>
@@ -60,11 +60,10 @@
                 <div id="upload" class="card col-10 col-lg-3 col-md-5 mx-auto my-3">
                     <div class="card-body text-center p-4">
                         <h4 class="card-title my-3">Format</h2>
-                            <select class="custom-select dark my-3" name="{{ form.convertFormat.name }}">
-                                <option selected>None</option>
-                                <option value="Word">Word</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                            <select class="custom-select dark my-3" id="fileType" name="{{ form.convertFormat.name }}">
+                                <option selected value=".docx">Word</option>
+                                <option value=".pptx">PowerPoint</option>
+                                <option value=".xlsx">Excel</option>
                             </select>
                             <button type="submit" class="btn btn-success my-3">Convert</button>
                     </div>
@@ -74,7 +73,9 @@
                 <div id="upload" class="card col-10 col-lg-3 col-md-5 mx-auto my-3">
                     <div class="card-body text-center p-4">
                         <h4 class="card-title my-3">Download</h2>
-
+                            <button class="btn btn-danger">
+                                <a id="downloadButton" href="/">Download</a>
+                            </button>
                     </div>
                 </div>
 

@@ -122,4 +122,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 # media directory in the root directory
 MEDIA_ROOT = os.path.join(BASE_DIR, 'convert/temp/pdf')
-MEDIA_URL = '/media/'
+DOWNLOAD_ROOT = os.path.join(BASE_DIR, 'convert/temp/word')
+DOWNLOAD_URL = '/'
