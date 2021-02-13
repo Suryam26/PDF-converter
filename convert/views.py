@@ -1,24 +1,56 @@
 from django.shortcuts import render, redirect
+from django.views import View
 from django.core.files.storage import FileSystemStorage
 from .forms import UploadForm
 from .pypdf import Convert
 # Create your views here.
 
 
-def Upload(request):
-    if request.method == 'POST':
-        form = UploadForm(request.POST, request.FILES)
-        if form.is_valid():
-            request_file = request.FILES['uploadFile']
-            convertFormat = form.cleaned_data['convertFormat']
-            if request_file:
-                fs = FileSystemStorage()
-                file = fs.save(request_file.name, request_file)
-                fileurl = fs.url(file)
-                Convert()
+class Upload(View):
+    def get(self, request):
+        context = {
+            'convert': {
+                'ready': False,
+                'name': ""
+            },
+            'download': {
+                'isDone': False,
+                'link': "\\"
+            }
+        }
+        return render(request, "index.html", context)
 
-            return redirect('home')
+    def post(self, request):
+        if (request.POST.get('convertFormat')):
+            convertFormat = request.POST['convertFormat']
+            name = request.POST['name']
+            Convert(name, convertFormat)
 
-    else:
-        form = UploadForm()
-        return render(request, "index.html", {'form': form})
+            context = {
+                'convert': {
+                    'ready': True,
+                    'name': name,
+                },
+                'download': {
+                    'ready': True,
+                    'link': name+convertFormat,
+                }
+            }
+            return render(request, "index.html", context)
+
+        else:
+            uploadedfile = request.FILES['uploadFile']
+            fs = FileSystemStorage()
+            fs.save(uploadedfile.name, uploadedfile)
+
+            context = {
+                'convert': {
+                    'ready': True,
+                    'name': uploadedfile.name[:-4],
+                },
+                'download': {
+                    'ready': False,
+                    'link': "\\"
+                }
+            }
+            return render(request, "index.html", context)

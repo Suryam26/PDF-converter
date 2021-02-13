@@ -1,18 +1,17 @@
 import glob
 import win32com.client
 import os
-import sys
 import pythoncom
 
 
-def Convert():
+def Convert(fileName, convertFormat):
     pythoncom.CoInitialize()
     word = win32com.client.Dispatch("Word.Application")
     word.visible = 0
 
-    pdfs_path = "convert/temp/pdf/"
-    reqs_path = "convert/temp/word/"
-    for i, doc in enumerate(glob.iglob(pdfs_path+"*.pdf")):
+    pdfs_path = "convert\\temp\\pdf\\"
+    reqs_path = "convert\\temp\\word\\"
+    for i, doc in enumerate(glob.iglob(pdfs_path+fileName+".pdf")):
         filename = doc.split('\\')[-1]
         in_file = os.path.abspath(doc)
         wb = word.Documents.Open(in_file)

@@ -18,9 +18,9 @@ from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
 from django.views.generic import TemplateView
-from convert import views
+from convert.views import Upload
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.Upload, name='home'),
+    path('', Upload.as_view(), name='home'),
 ] + static(settings.DOWNLOAD_URL, document_root=settings.DOWNLOAD_ROOT)

@@ -47,38 +47,43 @@
                 <div id="upload" class="card col-10 col-lg-3 col-md-5 mx-auto my-3">
                     <div class="card-body text-center p-4">
                         <h4 class="card-title my-3">Select a file</h2>
-                            <div class="card-text btn-wrapper btn btn-primary px-4 my-3">
-                                <i class="fa fa-upload" aria-hidden="true"></i>
-                                Upload
-                                <input id="uploadButton" type="file" name="{{ form.uploadFile.name }}">
-                            </div>
-                            
+                        <button class="btn-wrapper btn btn-light px-4 my-3">
+                            Select A File
+                            <input id="uploadButton" type="file" name="uploadFile">
+                        </button>
+                        <button class="btn btn-primary my-3">
+                            <i class="fa fa-upload" aria-hidden="true"></i>
+                            Upload
+                        </button>
                     </div>
                 </div>
 
-
+                {% if convert.ready %}
                 <div id="upload" class="card col-10 col-lg-3 col-md-5 mx-auto my-3">
                     <div class="card-body text-center p-4">
                         <h4 class="card-title my-3">Format</h2>
-                            <select class="custom-select dark my-3" id="fileType" name="{{ form.convertFormat.name }}">
-                                <option selected value=".docx">Word</option>
-                                <option value=".pptx">PowerPoint</option>
-                                <option value=".xlsx">Excel</option>
-                            </select>
-                            <button type="submit" class="btn btn-success my-3">Convert</button>
-                    </div>
+                        <select class="custom-select dark my-3" id="fileType" name="convertFormat">
+                            <option selected value="None">None</option>
+                            <option value=".docx">Word</option>
+                            <option value=".pptx">PowerPoint</option>
+                            <option value=".xlsx">Excel</option>
+                        </select>
+                        <input type="hidden" value="{{ convert.name }}" name="name"></input>
+                        <button type="submit" class="btn btn-success my-3">Convert</button>
+                    </div>          
                 </div>
+                {% endif %}
 
-
+                {% if download.ready %}
                 <div id="upload" class="card col-10 col-lg-3 col-md-5 mx-auto my-3">
                     <div class="card-body text-center p-4">
                         <h4 class="card-title my-3">Download</h2>
-                            <button class="btn btn-danger">
-                                <a id="downloadButton" href="/">Download</a>
-                            </button>
+                        <button class="btn btn-danger">
+                            <a id="downloadButton" href="{{ download.link }}">Download</a>
+                        </button>
                     </div>
                 </div>
-
+                {% endif %}
 
             </div>
         </form>
