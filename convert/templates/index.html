@@ -39,54 +39,76 @@
 
     <!-- Main Body -->
     <div class="container my-5">
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
+        
             <div class="row">
 
                 <!-- Upload Menu -->
-                <div id="upload" class="card col-10 col-lg-3 col-md-5 mx-auto my-3">
-                    <div class="card-body text-center p-4">
-                        <h4 class="card-title my-3">Select a file</h2>
-                        <button class="btn-wrapper btn btn-light px-4 my-3">
-                            Select A File
-                            <input id="uploadButton" type="file" name="uploadFile">
-                        </button>
-                        <button class="btn btn-primary my-3">
-                            <i class="fa fa-upload" aria-hidden="true"></i>
-                            Upload
-                        </button>
+                <form method="POST" action="{% url 'home' %}" enctype="multipart/form-data" class="col-10 col-lg-3 col-md-5 mx-auto my-3">
+                    {% csrf_token %}
+                    <div id="upload" class="card">
+                        <div class="card-body text-center p-4">
+                            <h4 class="card-title my-3">Select a file</h2>
+                            <div id="fileName" class="card-text h5">{{ name }}</div>
+                            <button class="btn-wrapper btn btn-light px-4 my-3">
+                                <i class="fa fa-file" aria-hidden="true"></i>
+                                Select A File
+                                <input type="file" required name="uploadFile">
+                            </button>
+                            <button id="uploadButton" disabled type="submit" class="btn btn-primary my-3">
+                                <i class="fa fa-upload" aria-hidden="true"></i>
+                                Upload
+                            </button>
+                        </div>
                     </div>
-                </div>
+                </form>
 
                 {% if convert.ready %}
-                <div id="upload" class="card col-10 col-lg-3 col-md-5 mx-auto my-3">
-                    <div class="card-body text-center p-4">
-                        <h4 class="card-title my-3">Format</h2>
-                        <select class="custom-select dark my-3" id="fileType" name="convertFormat">
-                            <option selected value="None">None</option>
-                            <option value=".docx">Word</option>
-                            <option value=".pptx">PowerPoint</option>
-                            <option value=".xlsx">Excel</option>
-                        </select>
-                        <input type="hidden" value="{{ convert.name }}" name="name"></input>
-                        <button type="submit" class="btn btn-success my-3">Convert</button>
-                    </div>          
-                </div>
+                <form method="POST" action="{% url 'convert' %}" enctype="multipart/form-data" class="col-10 col-lg-3 col-md-5 mx-auto my-3">
+                    {% csrf_token %}
+                    <div id="upload" class="card">
+                        <div class="card-body text-center p-4">
+                            <h4 class="card-title my-3">Format</h2>
+                            <select class="custom-select my-3" id="fileType" name="convertFormat">
+                                <option value="None">None</option>
+                                <option value=".docx">Word</option>
+                                <option value=".pptx">PowerPoint</option>
+                                <option value=".xlsx">Excel</option>
+                            </select>
+                            <div class="d-none" id="selected">{{ convert.type }}</div>
+                            <input type="hidden" value="{{ name }}" name="name"></input>
+                            <button id="convertButton" disabled type="submit" class="btn btn-success my-3">
+                                <i class="fa fa-sync" aria-hidden="true"></i>
+                                Convert
+                            </button>
+                        </div>          
+                    </div>
+                </form>
                 {% endif %}
 
                 {% if download.ready %}
-                <div id="upload" class="card col-10 col-lg-3 col-md-5 mx-auto my-3">
-                    <div class="card-body text-center p-4">
-                        <h4 class="card-title my-3">Download</h2>
-                        <button class="btn btn-danger">
-                            <a id="downloadButton" href="{{ download.link }}">Download</a>
-                        </button>
+                <form onsubmit="return false;" class="col-10 col-lg-3 col-md-5 mx-auto my-3">
+                    <div id="upload" class="card">
+                        <div class="card-body text-center p-4">
+                            <h4 class="card-title my-3">Download</h2>                
+                            <a id="downloadButton" href="{{ download.link }}">
+                                <button type="button" class="btn btn-danger my-3">
+                                    <i class="fa fa-download" aria-hidden="true"></i>
+                                    Download
+                                </button>
+                            </a>
+                            <a href="{% url 'home' %}">
+                                <button type="button" class="btn btn-light my-3">
+                                    <i class="fa fa-undo" aria-hidden="true"></i>
+                                    Reset
+                                </button>
+                            </a>
+                        </div>
                     </div>
-                </div>
+                </form>
                 {% endif %}
 
             </div>
-        </form>
+        
 
     </div>
 

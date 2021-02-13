@@ -9,9 +9,9 @@ from .pypdf import Convert
 class Upload(View):
     def get(self, request):
         context = {
+            'name': "",
             'convert': {
                 'ready': False,
-                'name': ""
             },
             'download': {
                 'isDone': False,
@@ -21,36 +21,39 @@ class Upload(View):
         return render(request, "index.html", context)
 
     def post(self, request):
-        if (request.POST.get('convertFormat')):
-            convertFormat = request.POST['convertFormat']
-            name = request.POST['name']
-            Convert(name, convertFormat)
+        uploadedfile = request.FILES['uploadFile']
+        fs = FileSystemStorage()
+        fs.save(uploadedfile.name, uploadedfile)
 
-            context = {
-                'convert': {
-                    'ready': True,
-                    'name': name,
-                },
-                'download': {
-                    'ready': True,
-                    'link': name+convertFormat,
-                }
+        context = {
+            'name': uploadedfile.name,
+            'convert': {
+                'ready': True,
+                'type': 'None',
+            },
+            'download': {
+                'ready': False,
+                'link': "\\"
             }
-            return render(request, "index.html", context)
+        }
+        return render(request, "index.html", context)
 
-        else:
-            uploadedfile = request.FILES['uploadFile']
-            fs = FileSystemStorage()
-            fs.save(uploadedfile.name, uploadedfile)
 
-            context = {
-                'convert': {
-                    'ready': True,
-                    'name': uploadedfile.name[:-4],
-                },
-                'download': {
-                    'ready': False,
-                    'link': "\\"
-                }
+class ConvertFile(View):
+    def post(self, request):
+        convertFormat = request.POST['convertFormat']
+        name = request.POST['name']
+        Convert(name[:-4], convertFormat)
+
+        context = {
+            'name': name,
+            'convert': {
+                'ready': True,
+                'type': convertFormat,
+            },
+            'download': {
+                'ready': True,
+                'link':  name[:-4]+convertFormat,
             }
-            return render(request, "index.html", context)
+        }
+        return render(request, "index.html", context)

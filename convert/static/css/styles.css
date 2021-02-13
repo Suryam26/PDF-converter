@@ -21,7 +21,7 @@ body {
 #upload {
   background-color: #313131;
   border-radius: 20px;
-  min-height: 35vh;
+  min-height: 40vh;
   overflow: hidden;
 }
 
@@ -31,6 +31,7 @@ body {
 
 .btn-wrapper {
   position: relative;
+  width: 80%;
 }
 
 .btn-wrapper input[type="file"] {
