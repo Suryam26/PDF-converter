@@ -1,7 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.views import View
 from django.core.files.storage import FileSystemStorage
-from .forms import UploadForm
 from .pypdf import Convert
 # Create your views here.
 
